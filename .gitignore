@@ -1,0 +1,26 @@
+﻿# Java / Maven
+**/target/
+
+# Android / Gradle
+**/.gradle/
+**/.kotlin/
+**/build/
+**/local.properties
+
+# IDEs
+**/.idea/
+**/.vscode/
+*.iml
+
+# Arquivos locais e segredos
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
+
+/backend/src/main/resources/application.properties
