@@ -148,7 +148,7 @@ fun LoginScreen(
         Text(
             text = "Que bom ter você aqui!",
             style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onBackground
+            color = DeepLilac
         )
 
         Spacer(Modifier.height(8.dp))
@@ -178,7 +178,7 @@ fun LoginScreen(
                 Text(
                     text = "Entrar na conta",
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = DeepLilac
                 )
 
                 Text(
@@ -335,10 +335,6 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth(),
                     enabled = !uiState.carregando
                 ) {
-                    Text(
-                        text = "▷  Explorar modo de demonstração",
-                        color = DeepLilac
-                    )
                 }
 
                 Row(
@@ -433,12 +429,22 @@ private fun PerfilCard(
 
 @Composable
 private fun camposHopeLife() = OutlinedTextFieldDefaults.colors(
+    focusedTextColor = Color(0xFF30283B),
+    unfocusedTextColor = Color(0xFF30283B),
+
+    focusedPlaceholderColor = Color(0xFF777080),
+    unfocusedPlaceholderColor = Color(0xFF777080),
+
+    focusedLabelColor = DeepLilac,
+    unfocusedLabelColor = Color(0xFF62586D),
+
     focusedBorderColor = DeepLilac,
     unfocusedBorderColor = HopeOutline,
-    focusedLabelColor = DeepLilac,
+
     cursorColor = DeepLilac,
     focusedLeadingIconColor = DeepLilac,
     unfocusedLeadingIconColor = HopeTextSecondary,
     focusedTrailingIconColor = DeepLilac,
     unfocusedTrailingIconColor = HopeTextSecondary
 )
+

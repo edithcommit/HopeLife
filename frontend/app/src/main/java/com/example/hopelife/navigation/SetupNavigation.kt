@@ -33,6 +33,9 @@ import com.example.hopelife.ui.home.HomeScreen
 import com.example.hopelife.ui.favoritos.FavoritosScreen
 import com.example.hopelife.ui.carrinho.CarrinhoScreen
 import com.example.hopelife.ui.perfil.PerfilScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.hopelife.ui.home.ProdutoViewModel
+import com.example.hopelife.ui.carrinho.CarrinhoViewModel
 
 private data class BottomItem(
     val screen: Screen,
@@ -44,6 +47,8 @@ private data class BottomItem(
 fun SetupNavigation() {
 
     val navController = rememberNavController()
+
+    val carrinhoViewModel: CarrinhoViewModel = viewModel()
 
     val cadastroFactory = remember {
         CadastroViewModelFactory(
@@ -164,15 +169,26 @@ fun SetupNavigation() {
             }
 
             composable(Screen.Home.route) {
-                HomeScreen()
+                val produtoViewModel: ProdutoViewModel = viewModel()
+
+                HomeScreen(
+                    viewModel = produtoViewModel,
+                    carrinhoViewModel = carrinhoViewModel
+                )
             }
 
             composable(Screen.Favoritos.route) {
-                FavoritosScreen()
+                val produtoViewModel: ProdutoViewModel = viewModel()
+                FavoritosScreen(
+                    viewModel = produtoViewModel,
+                    carrinhoViewModel = carrinhoViewModel
+                )
             }
 
             composable(Screen.Carrinho.route) {
-                CarrinhoScreen()
+                CarrinhoScreen(
+                    carrinhoViewModel = carrinhoViewModel
+                )
             }
 
             composable(Screen.Perfil.route) {

@@ -38,4 +38,14 @@ public class PedidoController {
     PedidoView rejeitar(@PathVariable Long id) {
         return service.decidir(id, false);
     }
+
+    @GetMapping("/{id}")
+    ResponseEntity<PedidoView> buscarPorId(
+            @PathVariable Long id,
+            Authentication a) {
+
+        return ResponseEntity.ok(
+                service.buscarPorId(id, a.getName())
+        );
+    }
 }

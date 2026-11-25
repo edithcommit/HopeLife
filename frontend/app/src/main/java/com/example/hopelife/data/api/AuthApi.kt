@@ -11,6 +11,7 @@ import retrofit2.http.POST
 import com.example.hopelife.data.dto.PerfilUpdateRequest
 import retrofit2.http.Header
 import retrofit2.http.PUT
+import retrofit2.http.DELETE
 
 interface AuthApi {
 
@@ -39,4 +40,9 @@ interface AuthApi {
         @Header("Authorization") token: String,
         @Body dados: PerfilUpdateRequest
     ): Response<UsuarioResponse>
+
+    @DELETE("usuarios/me")
+    suspend fun excluirConta(
+        @Header("Authorization") token: String
+    ): Response<Unit>
 }

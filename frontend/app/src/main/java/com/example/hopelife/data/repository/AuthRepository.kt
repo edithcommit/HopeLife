@@ -59,4 +59,14 @@ class AuthRepository(
                 "O servidor retornou uma resposta vazia."
             )
     }
+
+    suspend fun excluirConta(token: String) {
+        val resposta = api.excluirConta(
+            token = "Bearer $token"
+        )
+
+        if (!resposta.isSuccessful) {
+            throw HttpException(resposta)
+        }
+    }
 }

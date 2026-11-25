@@ -21,7 +21,9 @@ data class PerfilUiState(
     val editando: Boolean = false,
     val carregando: Boolean = false,
     val mensagem: String? = null,
-    val erro: Boolean = false
+    val erro: Boolean = false,
+    val excluindo: Boolean = false,
+    val contaExcluida: Boolean = false
 )
 
 class PerfilViewModel(
@@ -161,6 +163,66 @@ class PerfilViewModel(
     private fun mostrarErro(mensagem: String) {
         _uiState.update {
             it.copy(mensagem = mensagem, erro = true, carregando = false)
+        }
+    }
+
+    fun excluirConta() {
+        val usuario = SessaoUsuario.obterUsuario()
+
+        if (usuario == null) {
+            mostrarErro("Sua sessão terminou. Entre novamente.")
+            return
+        }
+
+        val token = usuario.token
+
+        if (token.isBlank()) {
+            mostrarErro("Token de autenticação não encontrado. Entre novamente.")
+            return
+        }
+
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    excluindo = true,
+                    mensagem = null,
+                    erro = false
+                )
+            }
+
+            try {
+                repository.excluirConta(token)
+
+                // Só limpa a sessão depois da confirmação do backend.
+                SessaoUsuario.limpar()
+
+                _uiState.update {
+                    it.copy(
+                        excluindo = false,
+                        contaExcluida = true
+                    )
+                }
+
+            } catch (e: HttpException) {
+                val mensagem = when (e.code()) {
+                    401 -> "Sua sessão expirou. Entre novamente."
+                    403 -> "A exclusão está disponível apenas para clientes."
+                    404 -> "Conta não encontrada."
+                    else -> "Não foi possível excluir sua conta. Tente novamente."
+                }
+                mostrarErro(mensagem)
+
+            } catch (e: IOException) {
+                mostrarErro("Não foi possível conectar ao servidor.")
+
+            } catch (e: Exception) {
+                mostrarErro("Ocorreu um erro inesperado ao excluir sua conta.")
+
+            } finally {
+                _uiState.update {
+                    it.copy(excluindo = false)
+                }
+            }
         }
     }
 }

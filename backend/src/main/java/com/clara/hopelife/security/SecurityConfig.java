@@ -57,6 +57,10 @@ public class SecurityConfig {
                                 "/produtos",
                                 "/produtos/**"
                         ).permitAll()
+                        .requestMatchers(
+                        HttpMethod.POST,
+                        "/webhooks/mercadopago"
+                ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(

@@ -27,7 +27,8 @@ public final class ApiDtos {
         public record UsuarioView(Long id, String nome, String email, String endereco, String perfil) {
         }
 
-        public record ProdutoView(Long id, String nome, BigDecimal preco, boolean exigeReceita) {
+        public record ProdutoView(Long id, String nome, BigDecimal preco, boolean exigeReceita, String descricao,
+                        String imagemUrl, String categoria, Integer quantidadeEstoque, boolean ativo) {
         }
 
         public record ItemCheckout(@NotNull Long produtoId, @NotNull @Positive Integer quantidade) {
@@ -40,7 +41,8 @@ public final class ApiDtos {
         }
 
         public record PedidoView(Long id, String status, String urlReceita, LocalDateTime dataCriacao,
-                        List<ItemView> itens) {
+                        BigDecimal valorTotal, String checkoutUrl, List<ItemView> itens) {
+
         }
 
         public record LoginRequest(String email, String senha) {
@@ -49,8 +51,7 @@ public final class ApiDtos {
         public record LoginResponse(Long id, String nome, String email, String endereco, String perfil, String token) {
         }
 
-        public record LoginFarmaceuticoRequest(@NotBlank @Email @Size(max = 150) String email, @NotBlank String senha, @NotBlank
-        @Pattern(regexp = "^[0-9]-[0-9]{5}$")
-        String matricula) {
+        public record LoginFarmaceuticoRequest(@NotBlank @Email @Size(max = 150) String email, @NotBlank String senha,
+                        @NotBlank @Pattern(regexp = "^[0-9]-[0-9]{5}$") String matricula) {
         }
 }

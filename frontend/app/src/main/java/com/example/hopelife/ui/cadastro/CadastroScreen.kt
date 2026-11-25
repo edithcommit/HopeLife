@@ -136,9 +136,9 @@ fun CadastroScreen(
         Spacer(Modifier.height(26.dp))
 
         Text(
-            text = "Vamos começar? ♡",
+            text = "Vamos começar?",
             style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onBackground
+            color = DeepLilac
         )
 
         Spacer(Modifier.height(6.dp))
@@ -168,7 +168,7 @@ fun CadastroScreen(
                 Text(
                     text = "Criar conta",
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = DeepLilac
                 )
 
                 Text(
@@ -517,14 +517,25 @@ private fun TipoContaCard(
     }
 }
 
+
 @Composable
 private fun camposCadastro() = OutlinedTextFieldDefaults.colors(
+    focusedTextColor = Color(0xFF30283B),
+    unfocusedTextColor = Color(0xFF30283B),
+
+    focusedPlaceholderColor = Color(0xFF777080),
+    unfocusedPlaceholderColor = Color(0xFF777080),
+
+    focusedLabelColor = DeepLilac,
+    unfocusedLabelColor = Color(0xFF62586D),
+
     focusedBorderColor = DeepLilac,
     unfocusedBorderColor = HopeOutline,
-    focusedLabelColor = DeepLilac,
+
     cursorColor = DeepLilac,
     focusedLeadingIconColor = DeepLilac,
     unfocusedLeadingIconColor = HopeTextSecondary,
     focusedTrailingIconColor = DeepLilac,
     unfocusedTrailingIconColor = HopeTextSecondary
 )
+
